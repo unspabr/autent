@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>portaltotvs.iesp.edu.br:60443</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 10px;
+      font-size: 12px;
+    }
+
+    input[type="text"] {
+      width: 250px;
+      font-size: 12px;
+      padding: 2px;
+    }
+
+    button {
+      font-size: 12px;
+      padding: 2px 6px;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin-top: 8px;
+      width: auto;
+      font-size: 12px;
+      border: 1px solid white;
+    }
+
+    th, td {
+      border: 1px solid white;
+      padding: 3px 6px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #eee;
+    }
+
+    #mensagemErro {
+      color: black;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h4 style="margin-bottom: 8px;">TOTVS - Certificado de Emissão de Relatórios</h4>
+  <label for="reportId">Informe a identificação do relatório:</label><br>
+  <input type="text" id="reportId" />
+  <button onclick="buscarRelatorio()">Buscar</button>
+
+  <div id="mensagemErro" style="display: none;">
+    Nenhum relatório encontrado para a identificação informada.
+  </div>
+
+  <div id="resultado" style="display:none;">
+    <table>
+      <thead>
+        <tr>
+          <th>Identificação</th>
+          <th>Descrição</th>
+          <th>Data de Criação</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaDados"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const relatoriosSalvos = [
+      {
+        id: "7ecc627e-576c-46b8-88c0-c6d03c4bc123",
+        descricao: "ACADEMICO.007 - DECLARAÇÃO DE MATRÍCULA.PDF",
+        dataCriacao: "28/05/2025 10:57:14",
+        visualizar: "#"
+      },
+      {
+        id: "7ecc627e-576c-46b8-88c0-c6d03c4bc128",
+        descricao: "ACADEMICO.007 - DECLARAÇÃO DE MATRÍCULA.PDF",
+        dataCriacao: "28/05/2025 10:57:14",
+        visualizar: "https://drive.google.com/file/d/19aBTmPFYWqj1Sbcf7mUiiZbr-gYfFGAM/view?usp=sharing"
+      },
+      {
+        id: "7ecc627e-576c-46b8-88c0-c6d03c4bc120",
+        descricao: "ACADEMICO.007 - DECLARAÇÃO DE MATRÍCULA.PDF",
+        dataCriacao: "28/05/2025 10:57:14",
+        visualizar: "https://drive.google.com/file/d/1dxkoNrlfvs24uQ9SWQ-orW8h-AT2w_94/view?usp=sharing"
+      },
+      {
+        id: "7ecc627e-576c-46b8-88c0-c6d03c4bc135",
+        descricao: "ACADEMICO.007 - DECLARAÇÃO DE MATRÍCULA.PDF",
+        dataCriacao: "28/05/2025 10:57:14",
+        visualizar: "https://drive.google.com/file/d/1yKBEWGI_-g30KB7tJXRpgH67HDIFlHe8/view?usp=drive_link"
+      }
+    ];
+
+    function buscarRelatorio() {
+      const input = document.getElementById("reportId").value.trim();
+      const resultado = relatoriosSalvos.find(r => r.id === input);
+      const tabela = document.getElementById("tabelaDados");
+      const divResultado = document.getElementById("resultado");
+      const divErro = document.getElementById("mensagemErro");
+
+      tabela.innerHTML = "";
+
+      if (resultado) {
+        divResultado.style.display = "block";
+        divErro.style.display = "none";
+        tabela.innerHTML = `
+          <tr>
+            <td>${resultado.id}</td>
+            <td>${resultado.descricao}</td>
+            <td>${resultado.dataCriacao} <a href="${resultado.visualizar}" target="_blank">Visualizar</a></td>
+          </tr>
+        `;
+      } else {
+        divResultado.style.display = "none";
+        divErro.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
